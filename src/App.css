@@ -1,0 +1,605 @@
+:root {
+    --bg-color: #0f141d;
+    --card-bg: #fffdfa;
+
+    /* Cake Flavor Palette */
+    --frosting: #ffb5a7;
+    --sponge: #fcd5ce;
+    --cream: #ffffff;
+    --candle-color: #f28482;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+html, body, #root {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+}
+
+.scene-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color);
+    overflow: hidden;
+}
+
+/* Landing Overlay */
+.landing-screen {
+    position: absolute;
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+}
+
+.landing-title {
+    font-size: 2rem;
+    color: #f8fafc;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.landing-subtitle {
+    font-size: 1.05rem;
+    color: #94a3b8;
+    max-width: 380px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.primary-action-btn {
+    background: #ffffff;
+    color: #0f141d;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 12px 26px;
+    border-radius: 9999px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.primary-action-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.92;
+}
+
+/* Stage Area */
+.stage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.stage-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.stage-visible {
+    opacity: 1;
+}
+
+.prompt {
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 40px;
+    height: 30px;
+    text-align: center;
+    color: #f8fafc;
+    font-weight: 300;
+}
+
+/* Two Plates on Table */
+.table-surface {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 40px;
+}
+
+/* Main Cake Station */
+.cake-station {
+    position: relative;
+    width: 220px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    cursor: pointer;
+}
+
+.cake-station.disabled {
+    pointer-events: none;
+}
+
+.plate {
+    position: absolute;
+    bottom: 0;
+    background: #1e293b;
+    border-radius: 50%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.main-plate {
+    width: 220px;
+    height: 18px;
+}
+
+.small-plate {
+    width: 140px;
+    height: 14px;
+}
+/* --- BULLETPROOF HALF-SPONGE / HALF-CHOCOLATE CAKE --- */
+
+:root {
+    --bg-color: #0f141d;
+    --card-bg: #fffdfa;
+
+    /* Sponge colors */
+    --vanilla-base: #f5d6a7;
+    --vanilla-cream: #fff8eb;
+    --choco-base: #4a2818;
+    --choco-cream: #2b1408;
+
+    /* Frosting Top */
+    --frosting-top: #341c11;
+    --candle-color: #e76f51;
+}
+
+/* Main Cake Block */
+.cake-whole {
+    position: absolute;
+    bottom: 8px;
+    width: 180px;
+    height: 110px;
+    border-radius: 12px 12px 4px 4px;
+    overflow: hidden;
+    z-index: 3;
+    box-shadow: inset 0 -6px 14px rgba(0, 0, 0, 0.5);
+    transition: clip-path 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Solid Split Base */
+    background: linear-gradient(
+            to right,
+            var(--vanilla-base) 0%,
+            var(--vanilla-base) 50%,
+            var(--choco-base) 50%,
+            var(--choco-base) 100%
+    );
+}
+
+/* Horizontal Cream Layers across both flavors */
+.cake-whole::before {
+    content: "";
+    position: absolute;
+    top: 42px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(
+            to right,
+            var(--vanilla-cream) 0%,
+            var(--vanilla-cream) 50%,
+            var(--choco-cream) 50%,
+            var(--choco-cream) 100%
+    );
+    box-shadow: 0 26px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Top Dark Chocolate Ganache Frosting */
+.cake-whole::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: var(--frosting-top);
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* Sliced Cut Away */
+.cake-whole.cut {
+    clip-path: polygon(0 0, 65% 0, 65% 100%, 0 100%);
+}
+
+/* Small Sliced Piece on Second Plate */
+.cake-slice-piece {
+    position: absolute;
+    bottom: 6px;
+    width: 68px;
+    height: 90px;
+    border-radius: 8px 8px 4px 4px;
+    overflow: hidden;
+    z-index: 3;
+    box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.4);
+    transform-origin: bottom center;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+
+    /* Matches the split */
+    background: linear-gradient(
+            to right,
+            var(--vanilla-base) 0%,
+            var(--vanilla-base) 45%,
+            var(--choco-base) 45%,
+            var(--choco-base) 100%
+    );
+}
+
+.cake-slice-piece::before {
+    content: "";
+    position: absolute;
+    top: 36px;
+    left: 0;
+    width: 100%;
+    height: 7px;
+    background: linear-gradient(
+            to right,
+            var(--vanilla-cream) 0%,
+            var(--vanilla-cream) 45%,
+            var(--choco-cream) 45%,
+            var(--choco-cream) 100%
+    );
+}
+
+.cake-slice-piece::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 16px;
+    background: var(--frosting-top);
+    border-radius: 8px 8px 0 0;
+}
+
+/* Ensure candle base sits flush on top of frosting */
+.candles-container {
+    bottom: 116px !important;
+}
+
+/* Slice cut effect */
+.cake-whole.cut {
+    clip-path: polygon(0 0, 65% 0, 65% 100%, 0 100%);
+}
+/* Slice Station */
+.slice-station {
+    position: relative;
+    width: 140px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+}
+
+.slice-station.revealed {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* Candles Container - centered directly on top of cake */
+.candles-container {
+    position: absolute;
+    bottom: 108px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 170px; /* Exact same width as .cake-whole */
+    height: 50px;
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-evenly; /* Evenly spaces 2, 3, or 5 candles */
+    align-items: flex-end;
+    z-index: 10;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+}
+
+.candles-container.hidden {
+    opacity: 0 !important;
+    visibility: hidden;
+    transform: translate(-50%, 10px);
+}
+
+/* Individual Candle */
+.candle {
+    position: relative !important;
+    left: auto !important;
+    bottom: auto !important;
+    width: 8px;
+    height: 42px;
+    flex-shrink: 0;
+    background: repeating-linear-gradient(
+            -45deg,
+            #ffffff,
+            #ffffff 4px,
+            var(--candle-color) 4px,
+            var(--candle-color) 8px
+    );
+    border-radius: 2px;
+}
+
+/* Flame */
+.flame {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 18px;
+    background: radial-gradient(ellipse at bottom, #fff3b0 0%, #ff7b00 70%);
+    border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+    box-shadow: 0 0 14px #ff9900;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.flame-0 { animation: flicker 0.14s infinite alternate; }
+.flame-1 { animation: flicker 0.17s infinite alternate 0.05s; }
+.flame-2 { animation: flicker 0.13s infinite alternate 0.1s; }
+
+.flame.extinguished {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.1);
+}
+
+/* Popups */
+.letter-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%) scale(0.92);
+    width: 90%;
+    max-width: 440px;
+    background: var(--card-bg);
+    padding: 34px 28px;
+    border-radius: 14px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 20;
+}
+
+.letter-card.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.letter-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #0f141d;
+    margin-bottom: 14px;
+}
+
+.letter-text {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: #475569;
+    white-space: pre-line;
+    margin-bottom: 22px;
+}
+
+.letter-card .primary-action-btn {
+    background: #0f141d;
+    color: #ffffff;
+}
+/* --- CUTE BACKGROUND DECORATIONS --- */
+
+/* 1. Bunting Flags across top */
+.bunting-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.flag {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 36px solid;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+    animation: sway 3s ease-in-out infinite alternate;
+    transform-origin: top center;
+}
+
+.flag:nth-child(even) {
+    animation-duration: 2.6s;
+    animation-delay: 0.3s;
+}
+
+@keyframes sway {
+    from { transform: rotate(-5deg); }
+    to { transform: rotate(5deg); }
+}
+
+/* 2. Floating Balloons */
+.balloons-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.balloon {
+    position: absolute;
+    width: 44px;
+    height: 54px;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    opacity: 0.7;
+    animation: floatUp 12s linear infinite;
+}
+
+.balloon::after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.balloon-1 {
+    background: #ff7675;
+    left: 10%;
+    bottom: -60px;
+    animation-duration: 14s;
+    animation-delay: 0s;
+}
+
+.balloon-2 {
+    background: #74b9ff;
+    left: 85%;
+    bottom: -60px;
+    animation-duration: 16s;
+    animation-delay: 2s;
+}
+
+.balloon-3 {
+    background: #ffeaa7;
+    left: 22%;
+    bottom: -60px;
+    animation-duration: 13s;
+    animation-delay: 5s;
+}
+
+.balloon-4 {
+    background: #a29bfe;
+    left: 75%;
+    bottom: -60px;
+    animation-duration: 15s;
+    animation-delay: 7s;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-115vh) rotate(15deg);
+        opacity: 0;
+    }
+}
+
+/* 3. Twinkling Stars */
+.stars-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.star {
+    position: absolute;
+    color: #fef08a;
+    font-size: 1.1rem;
+    opacity: 0.3;
+    animation: twinkle 2.5s infinite ease-in-out alternate;
+}
+
+.star-1 { top: 20%; left: 15%; animation-delay: 0.2s; font-size: 1.4rem; }
+.star-2 { top: 35%; right: 18%; animation-delay: 0.8s; font-size: 0.9rem; }
+.star-3 { top: 65%; left: 12%; animation-delay: 1.4s; font-size: 1.2rem; }
+.star-4 { top: 25%; right: 35%; animation-delay: 0.5s; font-size: 1rem; }
+.star-5 { top: 70%; right: 14%; animation-delay: 1.9s; font-size: 1.3rem; }
+
+@keyframes twinkle {
+    from { opacity: 0.2; transform: scale(0.8); }
+    to { opacity: 0.8; transform: scale(1.2); }
+}
+/* Final Card Button Group */
+.card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Primary Download Button */
+.download-gift-btn {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    background: linear-gradient(135deg, #e07a5f 0%, #d62828 100%);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 20px;
+    border-radius: 9999px;
+    box-shadow: 0 4px 15px rgba(214, 40, 40, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.download-gift-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(214, 40, 40, 0.4);
+    opacity: 0.95;
+}
+
+/* Secondary Replay Link */
+.replay-link-btn {
+    background: transparent;
+    color: #64748b;
+    border: none;
+    font-size: 0.88rem;
+    cursor: pointer;
+    padding: 6px 12px;
+    transition: color 0.2s ease;
+}
+
+.replay-link-btn:hover {
+    color: #0f141d;
+    text-decoration: underline;
+}
